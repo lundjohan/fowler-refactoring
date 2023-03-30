@@ -42,6 +42,8 @@ module.exports = {
         }
         result += `Amount owed is ${format(totalAmount/100)}\n`;
         result += `You earned ${volumeCredits} credits\n`;
-        return result;
+        
+        //totalAmount & volumeCredits are returned for testing purposes
+        return {result, totalAmount, volumeCredits};
     }
 }

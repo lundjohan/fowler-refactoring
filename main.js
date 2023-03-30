@@ -3,6 +3,6 @@ var plays = require('./plays.json');
 var statement = require ('./printBill.js');
 
 
-let result = statement.statement(invoices[0], plays);
+let result = statement.statement(invoices[0], plays).result;
 console.log(result);
 console.log("Hello from Johan!"); //works!
