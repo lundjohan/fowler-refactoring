@@ -23,25 +23,25 @@ function statement(invoice, plays) {
     return { result, totalAmount, volumeCredits };
 }
 function calcAmount(typeOfPlay, audienceInPlay){
-    var thisAmount = 0;
+    var result = 0;
     switch (typeOfPlay) {
         case "tragedy":
-            thisAmount = 40000;
+            result = 40000;
             if (audienceInPlay > 30) {
-                thisAmount += 1000 * (audienceInPlay - 30);
+                result += 1000 * (audienceInPlay - 30);
             }
             break;
         case "comedy":
-            thisAmount = 30000;
+            result = 30000;
             if (audienceInPlay > 20) {
-                thisAmount += 10000 + 500 * (audienceInPlay - 20);
+                result += 10000 + 500 * (audienceInPlay - 20);
             }
-            thisAmount += 300 * audienceInPlay;
+            result += 300 * audienceInPlay;
             break;
         default:
             throw new Error(`unknown type: $(play.type)`);
     }
-    return thisAmount;
+    return result;
 }
 function calcVolumeCredits(typeOfPlay, audienceInPlay){
     volumeCredits += Math.max(audienceInPlay - 30, 0);
