@@ -40,10 +40,10 @@ function statement(invoice, plays) {
     //totalAmount & volumeCredits are returned for testing purposes
     return { result, totalAmount, volumeCredits };
 }
-function calcVolumeCredits(audience, typeOfPlay){
-    volumeCredits += Math.max(audience - 30, 0);
+function calcVolumeCredits(audienceInPlay, typeOfPlay){
+    volumeCredits += Math.max(audienceInPlay - 30, 0);
 
     //add extra credits for every ten comedy attendees
-    if ("comedy" === typeOfPlay) volumeCredits += Math.floor(audience / 10);
+    if ("comedy" === typeOfPlay) volumeCredits += Math.floor(audienceInPlay / 10);
 }
 exports.statement = statement;
