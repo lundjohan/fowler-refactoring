@@ -9,26 +9,8 @@ function statement(invoice, plays) {
         }).format;
     for (let perf of invoice.performances) {
         const play = plays[perf.playID];
-        let thisAmount = 0;
-
-        switch (play.type) {
-            case "tragedy":
-                thisAmount = 40000;
-                if (perf.audience > 30) {
-                    thisAmount += 1000 * (perf.audience - 30);
-                }
-                break;
-            case "comedy":
-                thisAmount = 30000;
-                if (perf.audience > 20) {
-                    thisAmount += 10000 + 500 * (perf.audience - 20);
-                }
-                thisAmount += 300 * perf.audience;
-                break;
-            default:
-                throw new Error(`unknown type: $(play.type)`);
-        }
-        calcVolumeCredits(perf.audience, play.type);
+        let thisAmount = calcAmount(play.type, perf.audience);
+        calcVolumeCredits(play.type, perf.audience);
 
         //print line for this order
         result += ` ${play.name}: ${format(thisAmount / 100)} (${perf.audience} seats)\n`;
@@ -40,7 +22,28 @@ function statement(invoice, plays) {
     //totalAmount & volumeCredits are returned for testing purposes
     return { result, totalAmount, volumeCredits };
 }
-function calcVolumeCredits(audienceInPlay, typeOfPlay){
+function calcAmount(typeOfPlay, audienceInPlay){
+    var thisAmount = 0;
+    switch (typeOfPlay) {
+        case "tragedy":
+            thisAmount = 40000;
+            if (audienceInPlay > 30) {
+                thisAmount += 1000 * (audienceInPlay - 30);
+            }
+            break;
+        case "comedy":
+            thisAmount = 30000;
+            if (audienceInPlay > 20) {
+                thisAmount += 10000 + 500 * (audienceInPlay - 20);
+            }
+            thisAmount += 300 * audienceInPlay;
+            break;
+        default:
+            throw new Error(`unknown type: $(play.type)`);
+    }
+    return thisAmount;
+}
+function calcVolumeCredits(typeOfPlay, audienceInPlay){
     volumeCredits += Math.max(audienceInPlay - 30, 0);
 
     //add extra credits for every ten comedy attendees
