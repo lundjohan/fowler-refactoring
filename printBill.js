@@ -1,6 +1,5 @@
 var retrievePlay = require('./play').retrievePlay;
 let totalAmount = 0;
-let volumeCredits = 0;
 function statement(invoice, plays) {
     let result = `Statement for ${invoice.customer}\n`;
     const format = new Intl.NumberFormat("en-US",
@@ -13,6 +12,7 @@ function statement(invoice, plays) {
         let thisAmount = play.calcAmount(performance.audience);
         totalAmount += thisAmount;
     }
+    let volumeCredits = 0;
     for (let performance of invoice.performances) {
         const play = retrievePlay(plays[performance.playID]);
         volumeCredits += play.calcVolumeCredits(performance.audience);
