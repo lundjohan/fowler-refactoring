@@ -1,5 +1,5 @@
 var retrievePlay = require('./play').retrievePlay;
-const plays = require('./plays.json');
+const playsJSON = require('./plays.json');
 let totalAmount = 0;
 function statement(invoice) {
     let result = `Statement for ${invoice.customer}\n`;
@@ -9,17 +9,17 @@ function statement(invoice) {
             minimumFractionDigits: 2
         }).format;
     for (let performance of invoice.performances) {
-        const play = retrievePlay(plays[performance.playID]);
+        const play = retrievePlay(playsJSON[performance.playID]);
         let thisAmount = play.calcAmount(performance.audience);
         totalAmount += thisAmount;
     }
     let volumeCredits = 0;
     for (let performance of invoice.performances) {
-        const play = retrievePlay(plays[performance.playID]);
+        const play = retrievePlay(playsJSON[performance.playID]);
         volumeCredits += play.calcVolumeCredits(performance.audience);
     }
     for (let performance of invoice.performances) {
-        const play = retrievePlay(plays[performance.playID]);
+        const play = retrievePlay(playsJSON[performance.playID]);
         let thisAmount = play.calcAmount(performance.audience);
 
         //print line for this order
