@@ -11,11 +11,18 @@ function statement(invoice, plays) {
     for (let performance of invoice.performances) {
         const play = retrievePlay(plays[performance.playID]);
         let thisAmount = play.calcAmount(performance.audience);
+        totalAmount += thisAmount;
+    }
+    for (let performance of invoice.performances) {
+        const play = retrievePlay(plays[performance.playID]);
         volumeCredits += play.calcVolumeCredits(performance.audience);
+    }
+    for (let performance of invoice.performances) {
+        const play = retrievePlay(plays[performance.playID]);
+        let thisAmount = play.calcAmount(performance.audience);
 
         //print line for this order
         result += ` ${play.name}: ${format(thisAmount / 100)} (${performance.audience} seats)\n`;
-        totalAmount += thisAmount;
     }
     result += `Amount owed is ${format(totalAmount / 100)}\n`;
     result += `You earned ${volumeCredits} credits\n`;
