@@ -1,9 +1,8 @@
 var invoices = require('../invoices.json');
-var plays = require('../plays.json');
 var statement = require('../printBill.js');
 var assert = require('assert');
 
-let returnValue = statement.statement(invoices[0], plays);
+let returnValue = statement.statement(invoices[0]);
 
 describe('statement', function () {
     it('totalAmount', function () {

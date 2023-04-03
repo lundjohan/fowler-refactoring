@@ -1,6 +1,7 @@
 var retrievePlay = require('./play').retrievePlay;
+const plays = require('./plays.json');
 let totalAmount = 0;
-function statement(invoice, plays) {
+function statement(invoice) {
     let result = `Statement for ${invoice.customer}\n`;
     const format = new Intl.NumberFormat("en-US",
         {
