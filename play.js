@@ -1,5 +1,5 @@
 class Play {
-    constructor(name) {this.name = name; };
+    constructor(name) { this.name = name; };
 
     calcAmount(audienceOfPerformance) {
     }
@@ -7,7 +7,7 @@ class Play {
     }
 }
 class Comedy extends Play {
-    constructor(name) {super(name); };
+    constructor(name) { super(name); };
     calcAmount(audienceOfPerformance) {
         var result = 30000;
         if (audienceOfPerformance > 20) {
@@ -26,7 +26,7 @@ class Comedy extends Play {
     }
 }
 class Tragedy extends Play {
-    constructor(name) {super(name); };
+    constructor(name) { super(name); };
     calcAmount(audienceOfPerformance) {
         var result = 40000;
         if (audienceOfPerformance > 30) {
