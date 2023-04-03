@@ -1,3 +1,4 @@
+var retrievePlay = require('./play').retrievePlay;
 let totalAmount = 0;
 let volumeCredits = 0;
 function statement(invoice, plays) {
@@ -8,9 +9,9 @@ function statement(invoice, plays) {
             minimumFractionDigits: 2
         }).format;
     for (let performance of invoice.performances) {
-        const play = plays[performance.playID];
-        let thisAmount = calcAmount(play.type, performance.audience);
-        calcVolumeCredits(play.type, performance.audience);
+        const play = retrievePlay(plays[performance.playID]);
+        let thisAmount = play.calcAmount(performance.audience);
+        volumeCredits += play.calcVolumeCredits(performance.audience);
 
         //print line for this order
         result += ` ${play.name}: ${format(thisAmount / 100)} (${performance.audience} seats)\n`;
