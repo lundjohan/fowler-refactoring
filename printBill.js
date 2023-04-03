@@ -13,11 +13,6 @@ function statement(invoice) {
         let thisAmount = play.calcAmount(performance.audience);
         totalAmount += thisAmount;
     }
-    let volumeCredits = 0;
-    for (let performance of invoice.performances) {
-        const play = retrievePlay(playsJSON[performance.playID]);
-        volumeCredits += play.calcVolumeCredits(performance.audience);
-    }
     for (let performance of invoice.performances) {
         const play = retrievePlay(playsJSON[performance.playID]);
         let thisAmount = play.calcAmount(performance.audience);
@@ -26,9 +21,18 @@ function statement(invoice) {
         result += ` ${play.name}: ${format(thisAmount / 100)} (${performance.audience} seats)\n`;
     }
     result += `Amount owed is ${format(totalAmount / 100)}\n`;
-    result += `You earned ${volumeCredits} credits\n`;
+    result += `You earned ${totalVolumeCredits(invoice.performances)} credits\n`;
 
     //totalAmount & volumeCredits are returned for testing purposes
+    var volumeCredits = totalVolumeCredits(invoice.performances);
     return { result, totalAmount, volumeCredits };
+}
+function totalVolumeCredits(performances) {
+    let result = 0;
+    for (let performance of performances) {
+        const play = retrievePlay(playsJSON[performance.playID]);
+        result += play.calcVolumeCredits(performance.audience);
+    }
+    return result;
 }
 exports.statement = statement;
