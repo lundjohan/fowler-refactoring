@@ -23,7 +23,7 @@ function statement(invoice, plays) {
     //totalAmount & volumeCredits are returned for testing purposes
     return { result, totalAmount, volumeCredits };
 }
-function calcAmount(typeOfPlay, audienceInPlay){
+function calcAmount(typeOfPlay, audienceInPlay) {
     var result = 0;
     switch (typeOfPlay) {
         case "tragedy":
@@ -44,7 +44,7 @@ function calcAmount(typeOfPlay, audienceInPlay){
     }
     return result;
 }
-function calcVolumeCredits(typeOfPlay, audienceInPlay){
+function calcVolumeCredits(typeOfPlay, audienceInPlay) {
     volumeCredits += Math.max(audienceInPlay - 30, 0);
 
     //add extra credits for every ten comedy attendees
