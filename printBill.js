@@ -1,7 +1,21 @@
 var retrievePlay = require('./play').retrievePlay;
-const playsJSON = require('./plays.json');
 let totalAmount = 0;
-function statement(invoice) {
+function statement(invoiceJSON, playsJSON) {
+    let result = "";
+    for (let i = 0; i < invoiceJSON.length; i++) {
+        result += statementData(invoiceJSON[i], playsJSON).result;
+    }
+    return result;
+}
+function statementData(invoice, playsJSON) {
+    function totalVolumeCredits(performances) {
+        let result = 0;
+        for (let performance of performances) {
+            const play = retrievePlay(playsJSON[performance.playID]);
+            result += play.calcVolumeCredits(performance.audience);
+        }
+        return result;
+    }
     let result = `Statement for ${invoice.customer}\n`;
 
     for (let performance of invoice.performances) {
@@ -22,14 +36,9 @@ function statement(invoice) {
     //totalAmount & volumeCredits are returned for testing purposes
     var volumeCredits = totalVolumeCredits(invoice.performances);
     return { result, totalAmount, volumeCredits };
-}
-function totalVolumeCredits(performances) {
-    let result = 0;
-    for (let performance of performances) {
-        const play = retrievePlay(playsJSON[performance.playID]);
-        result += play.calcVolumeCredits(performance.audience);
-    }
-    return result;
+
+
+    
 }
 function usd(value) {
     const format = new Intl.NumberFormat("en-US",
@@ -39,3 +48,4 @@ function usd(value) {
         }).format;
 }
 exports.statement = statement;
+exports.statementData = statementData;
