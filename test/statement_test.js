@@ -16,7 +16,7 @@ describe('statementData', function () {
     });
 });
 describe('statementData', function () {
-    it('result should not contained undefined values', function () {
-        assert.equal(returnValue.result.includes("undefined"), false);
+    it('result should contain Hamlet: $650.00 (55 seats)', function () {
+        assert.equal(returnValue.result.includes("Hamlet: $650.00 (55 seats)"), true);
     });
 });
