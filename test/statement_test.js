@@ -1,6 +1,7 @@
 var invoices = require('../invoices.json');
-var statement = require('../printBill.js');
 const playsJSON = require('../plays.json');
+var statement = require('../printBill.js');
+const statementData = require('../statementData').statementData;
 var assert = require('assert');
 
 let result = statement.statement(invoices,playsJSON);
@@ -16,7 +17,7 @@ describe('statement', function () {
     });
 });
 
-let returnValue = statement.statementData(invoices[0], playsJSON);
+let returnValue = statementData(invoices[0], playsJSON);
 describe('statementData', function () {
     it('totalAmount', function () {
         assert.equal(returnValue.totalAmount, 173000);
