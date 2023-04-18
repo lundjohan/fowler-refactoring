@@ -1,5 +1,5 @@
 var retrievePlay = require('./play').retrievePlay;
-let totalAmount = 0;
+
 function statement(invoiceJSON, playsJSON) {
     let result = "";
     for (let i = 0; i < invoiceJSON.length; i++) {
@@ -8,6 +8,7 @@ function statement(invoiceJSON, playsJSON) {
     return result;
 }
 function statementData(invoice, playsJSON) {
+    let totalAmount = 0;
     function totalVolumeCredits(performances) {
         let result = 0;
         for (let performance of performances) {

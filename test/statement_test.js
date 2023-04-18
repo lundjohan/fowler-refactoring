@@ -4,6 +4,7 @@ const playsJSON = require('../plays.json');
 var assert = require('assert');
 
 let result = statement.statement(invoices,playsJSON);
+let result2 = statement.statement(invoices,playsJSON);
 describe('statement', function () {
     it('result should contain string Amount owed is $1,730.00', function () {
         assert.equal(result.includes("Amount owed is $1,730.00"), true);
