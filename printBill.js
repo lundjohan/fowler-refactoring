@@ -33,9 +33,6 @@ function statementData(invoice, playsJSON) {
     //totalAmount & volumeCredits are returned for testing purposes
     var volumeCredits = totalVolumeCredits(invoice.performances);
     return { result, totalAmount, volumeCredits };
-
-
-    
 }
 function usd(value) {
     return new Intl.NumberFormat("en-US",
