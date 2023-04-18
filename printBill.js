@@ -39,7 +39,7 @@ function usd(value) {
         {
             style: "currency", currency: "USD",
             minimumFractionDigits: 2
-        }).format;
+        }).format(value);
 }
 exports.statement = statement;
 exports.statementData = statementData;
