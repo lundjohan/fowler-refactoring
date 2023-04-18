@@ -6,7 +6,7 @@ function statement(invoiceJSON, playsJSON) {
     }
     return result;
 }
-function statementData(invoice, playsJSON) {
+function statementData(anInvoice, playsJSON) {
     function totalVolumeCredits(performances) {
         let result = 0;
         for (let performance of performances) {
@@ -15,10 +15,10 @@ function statementData(invoice, playsJSON) {
         }
         return result;
     }
-    let result = `Statement for ${invoice.customer}\n`;
+    let result = `Statement for ${anInvoice.customer}\n`;
 
     let totalAmount = 0;
-    for (let performance of invoice.performances) {
+    for (let performance of anInvoice.performances) {
         const play = retrievePlay(playsJSON[performance.playID]);
         let thisAmount = play.calcAmount(performance.audience);
 
@@ -28,10 +28,10 @@ function statementData(invoice, playsJSON) {
         totalAmount += thisAmount;
     }
     result += `Amount owed is ${usd(totalAmount / 100)}\n`;
-    result += `You earned ${totalVolumeCredits(invoice.performances)} credits\n`;
+    result += `You earned ${totalVolumeCredits(anInvoice.performances)} credits\n`;
 
     //totalAmount & volumeCredits are returned for testing purposes
-    var volumeCredits = totalVolumeCredits(invoice.performances);
+    var volumeCredits = totalVolumeCredits(anInvoice.performances);
     return { result, totalAmount, volumeCredits };
 }
 function usd(value) {
