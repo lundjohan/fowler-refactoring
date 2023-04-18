@@ -3,8 +3,15 @@ var statement = require('../printBill.js');
 const playsJSON = require('../plays.json');
 var assert = require('assert');
 
-let returnValue = statement.statementData(invoices[0], playsJSON);
+let result = statement.statement(invoices,playsJSON);
+describe('statement', function () {
+    it('result should contain string Amount owed is $1,730.00', function () {
+        assert.equal(result.includes("Amount owed is $1,730.00"), true);
+    });
+});
 
+
+let returnValue = statement.statementData(invoices[0], playsJSON);
 describe('statementData', function () {
     it('totalAmount', function () {
         assert.equal(returnValue.totalAmount, 173000);
