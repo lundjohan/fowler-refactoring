@@ -10,7 +10,11 @@ describe('statement', function () {
         assert.equal(result.includes("Amount owed is $1,730.00"), true);
     });
 });
-
+describe('statement', function () {
+    it('result should contain Hamlet: $650.00 (55 seats)', function () {
+        assert.equal(result.includes("Hamlet: $650.00 (55 seats)"), true);
+    });
+});
 
 let returnValue = statement.statementData(invoices[0], playsJSON);
 describe('statementData', function () {
@@ -21,10 +25,5 @@ describe('statementData', function () {
 describe('statementData', function () {
     it('volumeCredits', function () {
         assert.equal(returnValue.volumeCredits, 43);
-    });
-});
-describe('statementData', function () {
-    it('result should contain Hamlet: $650.00 (55 seats)', function () {
-        assert.equal(returnValue.result.includes("Hamlet: $650.00 (55 seats)"), true);
     });
 });

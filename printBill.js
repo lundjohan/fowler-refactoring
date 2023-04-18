@@ -2,7 +2,9 @@ var retrievePlay = require('./play').retrievePlay;
 function statement(invoiceJSON, playsJSON) {
     let result = "";
     for (let i = 0; i < invoiceJSON.length; i++) {
-        result += statementData(invoiceJSON[i], playsJSON).result;
+        let statementObj = statementData(invoiceJSON[i], playsJSON);
+        toPrint(statementObj);
+        result += statementObj.toPrint;
     }
     return result;
 }
@@ -10,37 +12,45 @@ function statementData(anInvoice, playsJSON) {
     let statementObj = {};
     enrichStatement(statementObj);
     return statementObj;
+
     function enrichStatement(obj) {
-
-        function totalVolumeCredits(performances) {
-            let result = 0;
-            for (let performance of performances) {
-                const play = retrievePlay(playsJSON[performance.playID]);
-                result += play.calcVolumeCredits(performance.audience);
+        addCustomer(obj);
+        addPlays(obj);
+        addAmount(obj);
+        addVolumeCredits(obj);
+        function addCustomer(obj) {
+            obj.customer = anInvoice.customer;
+        }
+        function addPlays(obj) {
+            let playsResult = [];
+            for (let performance of anInvoice.performances) {
+                playsResult.push(retrievePlay(playsJSON[performance.playID], performance.audience));
             }
-            return result;
+            obj.plays = playsResult;
         }
-        let result = `Statement for ${anInvoice.customer}\n`;
-
-        let totalAmount = 0;
-        for (let performance of anInvoice.performances) {
-            const play = retrievePlay(playsJSON[performance.playID]);
-
-            //print line for this order
-            result += ` ${play.name}: ${usd(play.calcAmount(performance.audience) / 100)} (${performance.audience} seats)\n`;
-
-            totalAmount += play.calcAmount(performance.audience);
+        function addAmount(obj) {
+            let amountPerPlay = [];
+            obj.plays.forEach(e => { amountPerPlay.push(e.calcAmount()); });
+            obj.amountPerPlay = amountPerPlay;
+            obj.totalAmount = amountPerPlay.reduce(function (tot, e) { return tot + e; }, 0);
         }
-        result += `Amount owed is ${usd(totalAmount / 100)}\n`;
-        result += `You earned ${totalVolumeCredits(anInvoice.performances)} credits\n`;
+        function addVolumeCredits(obj) {
+            let totVolumeCredits = 0;
+            obj.plays.forEach(e => { totVolumeCredits += e.calcVolumeCredits(); });
+            obj.volumeCredits = totVolumeCredits;
+        }
 
-        //totalAmount & volumeCredits are returned for testing purposes
-        var volumeCredits = totalVolumeCredits(anInvoice.performances);
-        obj.result = result;
-        obj.totalAmount = totalAmount;
-        obj.volumeCredits = volumeCredits;
-        return obj;
     }
+}
+function toPrint(obj) {
+    let result = ``;
+    result += `Statement for ${obj.customer}\n`;
+
+    //print line for this order
+    obj.plays.forEach(p => { result += ` ${p.name}: ${usd(p.calcAmount() / 100)} (${p.audience} seats)\n`; });
+    result += `Amount owed is ${usd(obj.totalAmount / 100)}\n`;
+    result += `You earned ${obj.volumeCredits} credits\n`;
+    obj.toPrint = result;
     function usd(value) {
         return new Intl.NumberFormat("en-US",
             {

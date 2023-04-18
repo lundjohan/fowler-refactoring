@@ -1,49 +1,49 @@
 class Play {
-    constructor(name) { this.name = name; };
+    constructor(name, audience) { this.name = name; this.audience=audience};
 
-    calcAmount(audienceOfPerformance) {
+    calcAmount() {
     }
-    calcVolumeCredits(audienceOfPerformance) {
+    calcVolumeCredits() {
     }
 }
 class Comedy extends Play {
-    constructor(name) { super(name); };
-    calcAmount(audienceOfPerformance) {
+    constructor(name, audience) { super(name,audience); };
+    calcAmount() {
         var result = 30000;
-        if (audienceOfPerformance > 20) {
-            result += 10000 + 500 * (audienceOfPerformance - 20);
+        if (this.audience > 20) {
+            result += 10000 + 500 * (this.audience - 20);
         }
-        result += 300 * audienceOfPerformance;
+        result += 300 * this.audience;
         return result;
     }
-    calcVolumeCredits(audienceOfPerformance) {
+    calcVolumeCredits() {
         var result = 0;
-        result += Math.max(audienceOfPerformance - 30, 0);
+        result += Math.max(this.audience - 30, 0);
 
         //add extra credits for every ten comedy attendees
-        result += Math.floor(audienceOfPerformance / 10);
+        result += Math.floor(this.audience / 10);
         return result;
     }
 }
 class Tragedy extends Play {
-    constructor(name) { super(name); };
-    calcAmount(audienceOfPerformance) {
+    constructor(name, audience) { super(name,audience); };
+    calcAmount() {
         var result = 40000;
-        if (audienceOfPerformance > 30) {
-            result += 1000 * (audienceOfPerformance - 30);
+        if (this.audience > 30) {
+            result += 1000 * (this.audience - 30);
         }
         return result;
     }
-    calcVolumeCredits(audienceOfPerformance) {
-        return Math.max(audienceOfPerformance - 30, 0);
+    calcVolumeCredits() {
+        return Math.max(this.audience - 30, 0);
     }
 }
-function retrievePlay(playString) {
+function retrievePlay(playString, audience) {
     switch (playString.type) {
         case "tragedy":
-            return new Tragedy(playString.name);
+            return new Tragedy(playString.name, audience);
         case "comedy":
-            return new Comedy(playString.name);
+            return new Comedy(playString.name, audience);
         default:
             throw new Error(`unknown type: $(playString.type)`);
     }
