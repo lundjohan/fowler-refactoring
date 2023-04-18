@@ -21,14 +21,11 @@ function statementData(invoice, playsJSON) {
     for (let performance of invoice.performances) {
         const play = retrievePlay(playsJSON[performance.playID]);
         let thisAmount = play.calcAmount(performance.audience);
-        totalAmount += thisAmount;
-    }
-    for (let performance of invoice.performances) {
-        const play = retrievePlay(playsJSON[performance.playID]);
-        let thisAmount = play.calcAmount(performance.audience);
 
         //print line for this order
         result += ` ${play.name}: ${usd(thisAmount / 100)} (${performance.audience} seats)\n`;
+
+        totalAmount += thisAmount;
     }
     result += `Amount owed is ${usd(totalAmount / 100)}\n`;
     result += `You earned ${totalVolumeCredits(invoice.performances)} credits\n`;
