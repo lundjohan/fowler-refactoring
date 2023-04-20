@@ -13,8 +13,8 @@ function toPrint(obj) {
     result += `Statement for ${obj.customer}\n`;
 
     //print line for this order
-    obj.plays.forEach(p => { result += ` ${p.name}: ${usd(p.calcAmount() / 100)} (${p.audience} seats)\n`; });
-    result += `Amount owed is ${usd(obj.totalAmount / 100)}\n`;
+    obj.plays.forEach(p => { result += ` ${p.name}: ${usd(p.calcAmount())} (${p.audience} seats)\n`; });
+    result += `Amount owed is ${usd(obj.totalAmount)}\n`;
     result += `You earned ${obj.volumeCredits} credits\n`;
     obj.toPrint = result;
     function usd(value) {
@@ -22,7 +22,7 @@ function toPrint(obj) {
             {
                 style: "currency", currency: "USD",
                 minimumFractionDigits: 2
-            }).format(value);
+            }).format(value/100);
     }
 }
 exports.statement = statement;
