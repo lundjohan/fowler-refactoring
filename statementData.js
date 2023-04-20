@@ -1,8 +1,8 @@
 var retrievePlay = require('./play').retrievePlay;
 function statementData(anInvoice, playsJSON) {
-    let statementObj = {};
-    enrichStatement(statementObj);
-    return statementObj;
+    let result = {};
+    enrichStatement(result);
+    return result;
 
     function enrichStatement(obj) {
         addCustomer(obj);
