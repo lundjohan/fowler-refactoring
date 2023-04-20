@@ -9,8 +9,7 @@ function statement(invoiceJSON, playsJSON) {
     return result;
 }
 function toPrint(obj) {
-    let result = ``;
-    result += `Statement for ${obj.customer}\n`;
+    let result = `Statement for ${obj.customer}\n`;
 
     //print line for this order
     obj.plays.forEach(p => { result += ` ${p.name}: ${usd(p.calcAmount())} (${p.audience} seats)\n`; });
