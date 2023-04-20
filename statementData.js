@@ -2,20 +2,21 @@ var retrievePlay = require('./play').retrievePlay;
 function statementData(anInvoice, playsJSON) {
     let result = {};
     result.customer = anInvoice.customer;
+    result.plays = addPlays();
     enrichStatement(result);
     return result;
 
+    function addPlays() {
+        let playsResult = [];
+        for (let performance of anInvoice.performances) {
+            playsResult.push(retrievePlay(playsJSON[performance.playID], performance.audience));
+        }
+        return playsResult
+    }
     function enrichStatement(obj) {
-        addPlays(obj);
         addAmount(obj);
         addVolumeCredits(obj);
-        function addPlays(obj) {
-            let playsResult = [];
-            for (let performance of anInvoice.performances) {
-                playsResult.push(retrievePlay(playsJSON[performance.playID], performance.audience));
-            }
-            obj.plays = playsResult;
-        }
+        
         function addAmount(obj) {
             let amountPerPlay = [];
             obj.plays.forEach(e => { amountPerPlay.push(e.calcAmount()); });
