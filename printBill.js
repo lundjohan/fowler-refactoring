@@ -1,7 +1,7 @@
 const statementData = require('./statementData').statementData;
 function statement(invoiceJSON, playsJSON) {
     let result = "";
-    invoiceJSON.forEach(e => { result += toPrint(statementData(e, playsJSON)); });
+    invoiceJSON.forEach(i => { result += toPrint(statementData(i, playsJSON)); });
     return result;
 }
 function toPrint(obj) {
