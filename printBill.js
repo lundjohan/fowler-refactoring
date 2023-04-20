@@ -3,8 +3,7 @@ function statement(invoiceJSON, playsJSON) {
     let result = "";
     for (let i = 0; i < invoiceJSON.length; i++) {
         let statementObj = statementData(invoiceJSON[i], playsJSON);
-        toPrint(statementObj);
-        result += statementObj.toPrint;
+        result += toPrint(statementObj);
     }
     return result;
 }
@@ -15,7 +14,7 @@ function toPrint(obj) {
     obj.plays.forEach(p => { result += ` ${p.name}: ${usd(p.calcAmount())} (${p.audience} seats)\n`; });
     result += `Amount owed is ${usd(obj.totalAmount)}\n`;
     result += `You earned ${obj.volumeCredits} credits\n`;
-    obj.toPrint = result;
+    return result;
     function usd(value) {
         return new Intl.NumberFormat("en-US",
             {
