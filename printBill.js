@@ -2,8 +2,7 @@ const statementData = require('./statementData').statementData;
 function statement(invoiceJSON, playsJSON) {
     let result = "";
     for (let i = 0; i < invoiceJSON.length; i++) {
-        let statementObj = statementData(invoiceJSON[i], playsJSON);
-        result += toPrint(statementObj);
+        result += toPrint(statementData(invoiceJSON[i], playsJSON));
     }
     return result;
 }
