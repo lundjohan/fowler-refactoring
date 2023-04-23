@@ -4,7 +4,7 @@ function statementData(anInvoice, playsJSON) {
     result.customer = anInvoice.customer;
     result.performances = enrichPerformances(anInvoice.performances);
     result.totalAmount = result.performances.reduce((tot, e) => tot + e.amount, 0);
-    result.volumeCredits = result.performances.reduce(function (tot, e) { return tot + e.volumeCredits; }, 0);
+    result.volumeCredits = result.performances.reduce((tot, e) => tot + e.volumeCredits, 0);
     return result;
     function enrichPerformances(performances) {
         let result = [];
