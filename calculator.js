@@ -7,7 +7,6 @@ class Calculator {
     }
 }
 class ComedyCalculator extends Calculator {
-    constructor(name, audience) { super(name,audience); };
     amount() {
         var result = 30000;
         if (this.audience > 20) {
@@ -26,7 +25,6 @@ class ComedyCalculator extends Calculator {
     }
 }
 class TragedyCalculator extends Calculator {
-    constructor(name, audience) { super(name,audience); };
     amount() {
         var result = 40000;
         if (this.audience > 30) {
