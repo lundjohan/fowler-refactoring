@@ -38,7 +38,7 @@ class TragedyCalculator extends Calculator {
         return Math.max(this.audience - 30, 0);
     }
 }
-function retrievePlay(playString, audience) {
+function retrieveCalculator(playString, audience) {
     switch (playString.type) {
         case "tragedy":
             return new TragedyCalculator(playString.name, audience);
@@ -48,4 +48,4 @@ function retrievePlay(playString, audience) {
             throw new Error(`unknown type: $(playString.type)`);
     }
 }
-exports.retrievePlay = retrievePlay;
+exports.retrievePlay = retrieveCalculator;

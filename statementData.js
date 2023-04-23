@@ -1,4 +1,4 @@
-var retrievePlay = require('./calculator').retrievePlay;
+var retrieveCalculator = require('./calculator').retrievePlay;
 function statementData(anInvoice, playsJSON) {
     let result = {};
     result.customer = anInvoice.customer;
@@ -10,7 +10,7 @@ function statementData(anInvoice, playsJSON) {
     function addPlays() {
         let playsResult = [];
         for (let performance of anInvoice.performances) {
-            playsResult.push(retrievePlay(playsJSON[performance.playID], performance.audience));
+            playsResult.push(retrieveCalculator(playsJSON[performance.playID], performance.audience));
         }
         return playsResult
     }
@@ -20,8 +20,8 @@ function statementData(anInvoice, playsJSON) {
             let play = playsJSON[performance.playID];
             let thisPerformance = Object.assign({}, performance);
             thisPerformance.play = playsJSON[performance.playID];
-            thisPerformance.amount = retrievePlay(play, performance.audience).calcAmount();
-            thisPerformance.volumeCredits = retrievePlay(play, performance.audience).calcVolumeCredits();
+            thisPerformance.amount = retrieveCalculator(play, performance.audience).calcAmount();
+            thisPerformance.volumeCredits = retrieveCalculator(play, performance.audience).calcVolumeCredits();
             result.push(thisPerformance);
         }
         return result;
