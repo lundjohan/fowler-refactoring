@@ -6,14 +6,6 @@ function statementData(anInvoice, playsJSON) {
     result.totalAmount = result.performances.reduce(function (tot, e) { return tot + e.amount; }, 0);
     result.volumeCredits = result.performances.reduce(function (tot, e) { return tot + e.volumeCredits; }, 0);
     return result;
-
-    function addPlays() {
-        let playsResult = [];
-        for (let performance of anInvoice.performances) {
-            playsResult.push(retrieveCalculator(playsJSON[performance.playID], performance.audience));
-        }
-        return playsResult
-    }
     function enrichPerformances(performances) {
         let result = [];
         for (let performance of performances) {
