@@ -3,7 +3,7 @@ function statementData(anInvoice, playsJSON) {
     let result = {};
     result.customer = anInvoice.customer;
     result.performances = enrichPerformances(anInvoice.performances);
-    result.totalAmount = result.performances.reduce(function (tot, e) { return tot + e.amount; }, 0);
+    result.totalAmount = result.performances.reduce((tot, e) => tot + e.amount, 0);
     result.volumeCredits = result.performances.reduce(function (tot, e) { return tot + e.volumeCredits; }, 0);
     return result;
     function enrichPerformances(performances) {
