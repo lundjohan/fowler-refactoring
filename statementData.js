@@ -3,6 +3,7 @@ function statementData(anInvoice, playsJSON) {
     let result = {};
     result.customer = anInvoice.customer;
     result.plays = addPlays();
+    result.performances = enrichPerformances(anInvoice.performances);
     enrichStatement(result);
     result.volumeCredits = addVolumeCredits(result);
     return result;
@@ -13,6 +14,18 @@ function statementData(anInvoice, playsJSON) {
             playsResult.push(retrievePlay(playsJSON[performance.playID], performance.audience));
         }
         return playsResult
+    }
+    function enrichPerformances(performances) {
+        let result = [];
+        for (let performance of performances) {
+            let play = playsJSON[performance.playID];
+            let thisPerformance = Object.assign({}, performance);
+            thisPerformance.play = playsJSON[performance.playID];
+            thisPerformance.amount = retrievePlay(play, performance.audience).calcAmount();
+            thisPerformance.volumeCredits = retrievePlay(play, performance.audience).calcVolumeCredits();
+            result.push(thisPerformance);
+        }
+        return result;
     }
     function enrichStatement(obj) {
         addAmount(obj);
