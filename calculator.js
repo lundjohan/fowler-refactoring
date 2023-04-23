@@ -1,4 +1,4 @@
-class Play {
+class Calculator {
     constructor(name, audience) { this.name = name; this.audience=audience};
 
     calcAmount() {
@@ -6,7 +6,7 @@ class Play {
     calcVolumeCredits() {
     }
 }
-class Comedy extends Play {
+class ComedyCalculator extends Calculator {
     constructor(name, audience) { super(name,audience); };
     calcAmount() {
         var result = 30000;
@@ -25,7 +25,7 @@ class Comedy extends Play {
         return result;
     }
 }
-class Tragedy extends Play {
+class TragedyCalculator extends Calculator {
     constructor(name, audience) { super(name,audience); };
     calcAmount() {
         var result = 40000;
@@ -41,9 +41,9 @@ class Tragedy extends Play {
 function retrievePlay(playString, audience) {
     switch (playString.type) {
         case "tragedy":
-            return new Tragedy(playString.name, audience);
+            return new TragedyCalculator(playString.name, audience);
         case "comedy":
-            return new Comedy(playString.name, audience);
+            return new ComedyCalculator(playString.name, audience);
         default:
             throw new Error(`unknown type: $(playString.type)`);
     }

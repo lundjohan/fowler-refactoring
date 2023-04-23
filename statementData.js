@@ -1,4 +1,4 @@
-var retrievePlay = require('./play').retrievePlay;
+var retrievePlay = require('./calculator').retrievePlay;
 function statementData(anInvoice, playsJSON) {
     let result = {};
     result.customer = anInvoice.customer;
