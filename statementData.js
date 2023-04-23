@@ -2,10 +2,9 @@ var retrievePlay = require('./calculator').retrievePlay;
 function statementData(anInvoice, playsJSON) {
     let result = {};
     result.customer = anInvoice.customer;
-    result.plays = addPlays();
     result.performances = enrichPerformances(anInvoice.performances);
-    enrichStatement(result);
-    result.volumeCredits = addVolumeCredits(result);
+    result.totalAmount = result.performances.reduce(function (tot, e) { return tot + e.amount; }, 0);
+    result.volumeCredits = result.performances.reduce(function (tot, e) { return tot + e.volumeCredits; }, 0);
     return result;
 
     function addPlays() {
@@ -26,22 +25,6 @@ function statementData(anInvoice, playsJSON) {
             result.push(thisPerformance);
         }
         return result;
-    }
-    function enrichStatement(obj) {
-        addAmount(obj);
-        addVolumeCredits(obj);
-        
-        function addAmount(obj) {
-            let amountPerPlay = [];
-            obj.plays.forEach(e => { amountPerPlay.push(e.calcAmount()); });
-            obj.amountPerPlay = amountPerPlay;
-            obj.totalAmount = amountPerPlay.reduce(function (tot, e) { return tot + e; }, 0);
-        }
-    }
-    function addVolumeCredits(obj) {
-        let totVolumeCredits = 0;
-        obj.plays.forEach(e => { totVolumeCredits += e.calcVolumeCredits(); });
-        return totVolumeCredits;
     }
 }
 exports.statementData = statementData;
