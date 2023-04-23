@@ -27,3 +27,8 @@ describe('statementData', function () {
         assert.equal(returnValue.volumeCredits, 43);
     });
 });
+describe('retrieveCalculator', function () {
+    it('should throw error when non-existing play is arg', function () {
+        assert.throws(() => retrieveCalculator({ type: "non-existing" }, 55), Error, "unknown type: non-existing");
+    });
+});
