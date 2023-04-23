@@ -18,11 +18,11 @@ function statementData(anInvoice, playsJSON) {
         let result = [];
         for (let performance of performances) {
             let play = playsJSON[performance.playID];
-            let thisPerformance = Object.assign({}, performance);
-            thisPerformance.play = playsJSON[performance.playID];
-            thisPerformance.amount = retrieveCalculator(play, performance.audience).calcAmount();
-            thisPerformance.volumeCredits = retrieveCalculator(play, performance.audience).calcVolumeCredits();
-            result.push(thisPerformance);
+            let perf = Object.assign({}, performance);
+            perf.play = playsJSON[performance.playID];
+            perf.amount = retrieveCalculator(play, performance.audience).amount();
+            perf.volumeCredits = retrieveCalculator(play, performance.audience).volumeCredits();
+            result.push(perf);
         }
         return result;
     }
