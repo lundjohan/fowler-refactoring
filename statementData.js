@@ -4,6 +4,7 @@ function statementData(anInvoice, playsJSON) {
     result.customer = anInvoice.customer;
     result.plays = addPlays();
     enrichStatement(result);
+    result.volumeCredits = addVolumeCredits(result);
     return result;
 
     function addPlays() {
@@ -23,12 +24,11 @@ function statementData(anInvoice, playsJSON) {
             obj.amountPerPlay = amountPerPlay;
             obj.totalAmount = amountPerPlay.reduce(function (tot, e) { return tot + e; }, 0);
         }
-        function addVolumeCredits(obj) {
-            let totVolumeCredits = 0;
-            obj.plays.forEach(e => { totVolumeCredits += e.calcVolumeCredits(); });
-            obj.volumeCredits = totVolumeCredits;
-        }
-
+    }
+    function addVolumeCredits(obj) {
+        let totVolumeCredits = 0;
+        obj.plays.forEach(e => { totVolumeCredits += e.calcVolumeCredits(); });
+        return totVolumeCredits;
     }
 }
 exports.statementData = statementData;
