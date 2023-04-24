@@ -1,6 +1,6 @@
 var invoices = require('../invoices.json');
 const playsJSON = require('../plays.json');
-var statement = require('../printBill.js');
+var statement = require('../statement.js');
 const statementData = require('../statementData').statementData;
 var assert = require('assert');
 
