@@ -6,8 +6,6 @@ function statement(invoiceJSON, playsJSON) {
 }
 function toPrint(obj) {
     let result = `Statement for ${obj.customer}\n`;
-
-    //print line for this order
     obj.performances.forEach(p => { result += ` ${p.play.name}: ${usd(p.amount)} (${p.audience} seats)\n`; });
     result += `Amount owed is ${usd(obj.totalAmount)}\n`;
     result += `You earned ${obj.volumeCredits} credits\n`;
