@@ -13,11 +13,11 @@ function toPrint(obj) {
     result += `You earned ${obj.volumeCredits} credits\n`;
     return result;
 }
-function usd(value) {
+function usd(aNumber) {
     return new Intl.NumberFormat("en-US",
         {
             style: "currency", currency: "USD",
             minimumFractionDigits: 2
-        }).format(value / 100);
+        }).format(aNumber / 100);
 }
 exports.statement = statement;
