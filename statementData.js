@@ -1,4 +1,4 @@
-var retrieveCalculator = require('./calculator').retrievePlay;
+var createCalculator = require('./calculator').retrievePlay;
 function statementData(anInvoice, playsJSON) {
     let result = {};
     result.customer = anInvoice.customer;
@@ -9,8 +9,8 @@ function statementData(anInvoice, playsJSON) {
     function enrichPerformance(aPerformance) {
         let result = Object.assign({}, aPerformance);
         result.play = playsJSON[aPerformance.playID];
-        result.amount = retrieveCalculator(result.play, result.audience).amount();
-        result.volumeCredits = retrieveCalculator(result.play, result.audience).volumeCredits();
+        result.amount = createCalculator(result.play, result.audience).amount();
+        result.volumeCredits = createCalculator(result.play, result.audience).volumeCredits();
         return result;
     }
 }
